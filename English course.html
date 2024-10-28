@@ -1,0 +1,611 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Se Pay Shan 14:00 dan 15:30 Student Progress Tracker</title>
+   <style>/* Global Styles */
+    body {
+        font-family: 'Arial', sans-serif;
+        background-color: #f7f7f7;
+        margin: 0;
+        padding: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-height: 100vh;
+    }
+    
+    h1 {
+        color: #333;
+        font-size: 2.5rem;
+        margin-top: 20px;
+    }
+    
+    table {
+        width: 90%;
+        max-width: 1200px;
+        border-collapse: collapse;
+        margin: 20px 0;
+        background-color: white;
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        border-radius: 10px;
+        overflow: hidden;
+    }
+    
+    thead {
+        background-color: #4CAF50;
+        color: white;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
+    
+    thead th {
+        padding: 15px;
+        font-size: 14px;
+    }
+    
+    tbody td {
+        padding: 12px;
+        font-size: 14px;
+        color: #555;
+        border-bottom: 1px solid #ddd;
+        text-align: center;
+    }
+    
+    tbody tr:nth-child(odd) {
+        background-color: #f2f2f2;
+    }
+    
+    tbody tr:hover {
+        background-color: #f1f1f1;
+    }
+    
+    tbody td[contenteditable="true"] {
+        background-color: #fff9c4;
+        cursor: text;
+        outline: none;
+    }
+    
+    tbody td[contenteditable="true"]:hover {
+        background-color: #fff59d;
+    }
+    
+    tfoot td {
+        padding: 10px;
+        font-weight: bold;
+        color: #333;
+        background-color: #f9f9f9;
+    }
+    
+    /* Buttons */
+    button {
+        padding: 10px 20px;
+    
+        font-size: 16px;
+        margin: 15px;
+        border: none;
+        border-radius: 5px;
+        background-color: #4CAF50;
+        color: white;
+        cursor: pointer;
+        transition: background-color 0.3s ease;
+    }
+    
+    button:hover {
+        background-color: #45a049;
+    }
+    
+    button:focus {
+        outline: none;
+    }
+    
+    /* Responsive Design */
+    @media (max-width: 768px) {
+        table {
+            width: 100%;
+            font-size: 12px;
+        }
+    
+        tbody td, thead th {
+            padding: 8px;
+        }
+    
+        button {
+            padding: 8px 16px;
+            font-size: 14px;
+        }
+    }
+    
+    @media (max-width: 480px) {
+        h1 {
+            font-size: 1.8rem;
+        }
+    
+        button {
+            padding: 6px 12px;
+            font-size: 12px;
+        }
+    
+        table {
+            width: 100%;
+            font-size: 10px;
+        }
+    
+        tbody td, thead th {
+            padding: 6px;
+        }
+    }
+    
+    
+    
+    .td1{
+        background-color: rgb(199, 198, 198);
+        border-left: black;
+    }
+    .d{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+    .q1,.q2{
+        text-align:center; 
+        height: 50px;
+        width: 590px;
+    }
+    table {
+    width: 90%;
+    max-width: 1200px;
+    border-collapse: collapse;
+    margin: 20px 0;
+    background-color: white;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    overflow: hidden;
+}
+
+thead {
+    background-color: #4CAF50;
+    color: white;
+    text-transform: uppercase;
+    font-weight: bold;
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+thead th {
+    padding: 15px;
+    font-size: 14px;
+}
+
+
+    </style>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.16.9/xlsx.full.min.js"></script>
+</head>
+<body>
+    <h1>Weekly Progress Tracker</h1>
+
+    <p id="currentDate"></p> <!-- Hozirgi sanani ko'rsatish uchun joy -->
+    <table id="progressTable">
+        <thead>
+            <tr>
+                <th>Student Name</th>
+                <th>Vocabulary (%)</th>
+                <th>Speaking (%)</th>
+                <th>Reading (%)</th>
+                <th>Listening (%)</th>
+                <th>Practice (%)</th>
+                <th>YouTube Video (%)</th> <!-- Yangi ustun qo'shildi -->
+                <th>Average (%)</th>
+                <th>Davomat</th>
+            
+                
+               
+            </tr>
+        </thead>
+        <tbody>
+            <!-- Rows will be dynamically added here -->
+          
+                <tr>
+                 
+                    <td contenteditable="false">Isomiddinov Asomiddin</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td>0</td><td class="td1"><button onclick="markAbsent(this)">K</button></td>
+                
+                </tr>
+                <tr>
+                    <td contenteditable="false">Azizbek Ikromov</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td>0</td><td class="td1"><button onclick="markAbsent(this)">K</button></td></td>
+                   
+                </tr>
+                <tr>
+                    <td contenteditable="false">Moxinur Amriddinova</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td>0</td><td class="td1"><button onclick="markAbsent(this)">K</button></td></td>
+                    
+                </tr>
+                <tr>
+                    <td contenteditable="false">Ulugbek Habibulayev</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td>0</td><td class="td1"><button onclick="markAbsent(this)">K</button></td></td>
+                
+                </tr>
+                <tr>
+                    <td contenteditable="false">Fayzullaxon Sattarov</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td>0</td><td class="td1"><button onclick="markAbsent(this)">K</button></td></td>
+                  
+                </tr>
+                <tr>
+                    <td contenteditable="false">Tozagul Abdusalomova</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td>0</td><td class="td1"><button  onclick="markAbsent(this)">K</button></td></td>
+                   
+                </tr>
+                <tr>
+                    <td contenteditable="false">Shabbona Mamasoliyeva</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td>0</td><td class="td1"><button  onclick="markAbsent(this)">K</button></td></td>
+                </tr>
+                <tr>
+                    <td contenteditable="false">Mehrangiz Abduhalikova</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td>0</td>
+                    <td class="td1"><button onclick="markAbsent(this)">K</button></td></td>
+                  
+                </tr>
+                <tr>
+                    <td contenteditable="false">Ismoil Berkinov</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td>0</td>
+                    <td class="td1"><button onclick="markAbsent(this)">K</button></td></td>
+                   
+                </tr>
+                <tr>
+                    <td contenteditable="false">Oisha Qurbonova</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+
+                    <td>0</td>
+                    <td class="td1"><button onclick="markAbsent(this)">K</button></td></td>
+            
+                </tr>
+                <tr>
+                    <td contenteditable="false">Nodirbek Razzaqov</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td>0</td>
+                    <td class="td1"><button onclick="markAbsent(this)">K</button></td></td>
+             
+                </tr>
+                <tr>
+                    <td contenteditable="false">Sug'diyona Qanotova</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td>0</td>
+                    <td class="td1"><button onclick="markAbsent(this)">K</button></td></td>
+                    
+                </tr>
+                <tr>
+                    <td contenteditable="false">Mirsaid Erkinov</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td>0</td>
+                    <td class="td1"><button onclick="markAbsent(this)">K</button></td></td>
+                
+                </tr>
+                <tr>
+                    <td contenteditable="false">Doniyor Umarov</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td>0</td>
+                    <td class="td1"><button onclick="markAbsent(this)">K</button></td></td>
+                  
+                </tr>
+                <tr>
+                    <td contenteditable="false">Farangiz Eshqavvatov</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+
+                    <td contenteditable="true">0</td>
+                    <td>0</td>
+                    <td class="td1"><button onclick="markAbsent(this)">K</button></td></td>
+              
+                </tr>
+                <tr>
+                    <td contenteditable="false">Shahrizoda Mahmudova</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td>0</td>
+                    <td class="td1"><button onclick="markAbsent(this)">K</button></td></td>
+                  
+                </tr>
+                <tr>
+                    <td contenteditable="false">Nilufar Rahmatova</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td>0</td>
+                    <td class="td1"><button onclick="markAbsent(this)">K</button></td></td>
+                  
+                </tr>
+                <tr>
+                    <td contenteditable="false">Mastone Huseine</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td contenteditable="true">0</td>
+                    <td >0</td>
+                    <td  class="td1"><button onclick="markAbsent(this)">K</button></td></td>
+                    
+                </tr>
+              
+
+
+                <!-- Qo'shimcha o'quvchilarni shu yerga qo'shishingiz mumkin -->
+            
+        </tbody>
+    </table>
+
+    <!-- <button onclick="addStudentRow()">Add Student</button> -->
+   <div class="d"> <button class="q1" onclick="calculateAverages()">Calculate Weekly Averages</button>
+    <button class="q2" onclick="downloadExcel()">Download Excel</button>
+    <!-- <button class="q3" onclick="sendTelegramMessage()">Weekly Average Telegramga yuborish</button> -->
+    <!-- <button class="q3" onclick="sendTelegramMessage()">Natijalarni uquvchini uziga yuborish</button> -->
+</div>
+    <script>let studentCount = 1; // Boshlang'ich raqam
+
+        // Yangi o'quvchi qatori qo'shish funksiyasi
+        function addStudentRow() {
+            const table = document.getElementById("progressTable").getElementsByTagName('tbody')[0];
+            
+            let newRow = table.insertRow();
+            newRow.innerHTML = 
+                `<td contenteditable="true">Student ${studentCount + 1}</td>
+                <td contenteditable="true">0</td>
+                <td contenteditable="true">0</td>
+                <td contenteditable="true">0</td>
+                <td contenteditable="true">0</td>
+                <td contenteditable="true">0</td>
+                <td>0</td>
+                <td><button onclick="markAbsent(this)">K</button></td>
+            `;
+            studentCount++;
+        }
+        
+        // Haftalik o'rtacha natijalarni hisoblash funksiyasi
+        function calculateAverages() {
+            const table = document.getElementById("progressTable");
+            const rows = table.getElementsByTagName('tbody')[0].rows;
+            
+            for (let i = 0; i < rows.length; i++) {
+                let vocab = parseFloat(rows[i].cells[1].textContent) || 0;
+                let speaking = parseFloat(rows[i].cells[2].textContent) || 0;
+                let reading = parseFloat(rows[i].cells[3].textContent) || 0;
+                let listening = parseFloat(rows[i].cells[4].textContent) || 0;
+                let practise = parseFloat(rows[i].cells[5].textContent) || 0;
+                let youtube = parseFloat(rows[i].cells[6].textContent) || 0;
+        
+                let average = (vocab + speaking + reading + listening + practise + youtube) / 6;
+                rows[i].cells[7].textContent = average.toFixed(2);
+                
+                // Ranglarni belgilash
+                if (average < 40) {
+                    rows[i].style.backgroundColor = "red";
+                    rows[i].cells[7].textContent += " (Juda past)";
+                } else {
+                    rows[i].style.backgroundColor = "aqua";
+                }
+        
+                // Har bir o'quvchining foizini Telegramga yuborish
+                let studentName = rows[i].cells[0].textContent;
+                let message = `${studentName}: ${average.toFixed(2)}%`;
+                sendTelegramMessage(message);  // Har bir o'quvchi uchun xabar yuborish
+            }
+        }
+        
+        // Telegramga xabar yuborish funksiyasi
+        function sendTelegramMessage(message) {
+            const botToken = '7415072539:AAECefyAzvQxGt3iZTpHA6CfH-Tm7Atbcpg'; // O'zingizning bot tokeningizni joylashtiring
+            const chatId = '7024369179'; // O'zingizning chat ID'ingizni joylashtiring
+        
+            const url = `https://api.telegram.org/bot${botToken}/sendMessage`;
+            const data = {
+                chat_id: chatId,
+                text: message,
+            };
+        
+            fetch(url, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify(data),
+            })
+            .then(response => {
+                if (response.ok) {
+                    console.log("Xabar Telegramga yuborildi.");
+                } else {
+                    console.error("Xabar yuborishda xato yuz berdi.");
+                }
+            })
+            .catch(error => {
+                console.error("Xato: " + error.message);
+            });
+        }
+        
+        // Haftalik o'rtacha natijalarni yuborish funksiyasi
+        function sendWeeklyAverages() {
+            const table = document.getElementById("progressTable");
+            const rows = table.getElementsByTagName('tbody')[0].rows;
+            let message = "Haftalik O'rtacha Natijalar:\n";
+        
+            for (let i = 0; i < rows.length; i++) {
+                let studentName = rows[i].cells[0].textContent;
+                let average = rows[i].cells[7].textContent;
+                message += `${studentName}: ${average}\n`;
+            }
+        
+            sendTelegramMessage(message);
+        }
+        
+        // 30 foizdan kam ball to'plagan o'quvchilarni Excel formatida saqlash funksiyasi
+        function downloadExcel() {
+            const table = document.getElementById("progressTable");
+            const rows = table.getElementsByTagName('tbody')[0].rows;
+            let lowScorers = [];
+        
+            for (let i = 0; i < rows.length; i++) {
+                let average = parseFloat(rows[i].cells[6].textContent) || 0;
+                if (average < 30) {
+                    let studentData = [];
+                    for (let j = 0; j < rows[i].cells.length - 1; j++) {
+                        studentData.push(rows[i].cells[j].textContent);}
+                        lowScorers.push(studentData);
+                    }
+                }
+                if (lowScorers.length > 0) {
+                    let workbook = XLSX.utils.book_new();
+                    let worksheet = XLSX.utils.aoa_to_sheet([["Ism", "Vocab", "Speaking", "Reading", "Listening", "Practice", "O'rtacha"]].concat(lowScorers));
+                    XLSX.utils.book_append_sheet(workbook, worksheet, "Low Scorers");
+                    XLSX.writeFile(workbook, 'LowScorers.xlsx');
+                } else {
+                    alert("30 foizdan kam ball to'plagan o'quvchi yo'q.");
+                }
+            }
+            
+            // Kelmagan tugmasini bosganda qatorni muzlatish
+            function markAbsent(button) {
+                const row = button.parentElement.parentElement;
+                row.style.backgroundColor = "gray"; // Muzlatish rangi
+                row.cells[0].textContent += " (Kelmagan)";
+                row.cells[1].textContent = "N/A"; // Barcha foizlarni N/A ga o'zgartirish
+                row.cells[2].textContent = "N/A";
+                row.cells[3].textContent = "N/A";
+                row.cells[4].textContent = "N/A";
+                row.cells[5].textContent = "N/A";
+                row.cells[6].textContent = "N/A";
+            }
+            
+            // Sanani ko'rsatish
+            function displayCurrentDate() {
+                const currentDate = new Date();
+                document.getElementById("currentDate").textContent = currentDate.toLocaleDateString();
+            }
+            
+            // Sahna yuklanganda sanani ko'rsatish
+            window.onload = displayCurrentDate;
+        // Kelmagan tugmasini bosganda qatorni muzlatish yoki tiklash
+        function markAbsent(button) {
+            const row = button.parentElement.parentElement;
+        
+            // Agar qator allaqachon "Kelmagan" holatida bo'lsa, tiklash
+            if (row.dataset.absent === "true") {
+                row.style.backgroundColor = ""; // Asl rangiga qaytarish
+                for (let i = 0; i < row.cells.length - 1; i++) {
+                    row.cells[i].setAttribute("contenteditable", "true"); // Qatorlarni tahrirlanadigan qilish
+                }
+                row.dataset.absent = "false"; // Holatni yangilash
+            } 
+            // Aks holda, qatorni "muzlatish" va "Kelmagan" belgisi qo'shish
+            else {
+                row.style.backgroundColor = "gray"; // Muzlatilgan rang
+                for (let i = 0; i < row.cells.length - 1; i++) {
+                    row.cells[i].setAttribute("contenteditable", "false"); // Qatorlarni tahrirlanmaydigan qilish
+                }
+                row.dataset.absent = "true"; // Holatni saqlash
+            }
+        }
+        </script>
+   
+</body>
+</html>
